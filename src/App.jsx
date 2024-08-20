@@ -1,5 +1,5 @@
 import './App.css';
-import Sidebar from './layout/Sidebar/Sidebar';
+import SidebarMenu from './layout/Sidebar/Sidebar';
 import Content from './layout/Content/Content';
 import { SideBarTitleData } from './contextData/contextUtility';
 
@@ -8,7 +8,7 @@ function App() {
     <>
     <SideBarTitleData>
       <div className='app'>
-        <Sidebar />
+        <SidebarMenu />
         <Content />
       </div>
     </SideBarTitleData>

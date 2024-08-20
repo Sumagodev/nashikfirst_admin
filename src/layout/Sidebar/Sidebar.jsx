@@ -1,57 +1,155 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { personsImgs } from '../../utils/images';
-import { navigationLinks } from '../../data/data';
-import "./Sidebar.css";
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { SideBarTitle } from '../../contextData/contextUtility';
-// import { SidebarContext } from '../../context/sidebarContext';
-const Sidebar = () => {
-  const { setTitle } = useContext(SideBarTitle)
-  const [activeLinkIdx] = useState(1);
-  const ClickFunction = (title) => {
-    console.log("title", title);
-    setTitle(title)
-  }
-  // const [sidebarClass, setSidebarClass] = useState("sidebar-change");
-  // const { isSidebarOpen } = useContext(SidebarContext);
+import "./Sidebar.css";
 
-  // useEffect(() => {
-  //   if(isSidebarOpen){
-  //     setSidebarClass('');
-  //   } else {
-  //     setSidebarClass('sidebar-change');
-  //   }
-  // }, [isSidebarOpen]);
+// Sample navigation links with submenu items
+const navigationLinks = [
+  {
+    id: 1,
+    title: "MASTERS",
+    submenus: [
+      { id: 1, title: "Holiday", urlLink: "/holiday" },
+      { id: 2, title: "Session", urlLink: "/session" },
+      { id: 3, title: "Type of Vehicle", urlLink: "type-of-vehicle" },
+      { id: 4, title: "Training", urlLink: "/training" },
+      { id: 5, title: "Status", urlLink: "/status" },
+    ]
+  },
+  {
+    id: 2,
+    title: "HOME",
+    submenus: [
+      { id: 1, title: "RTO – Learner Driving License Holder Training", urlLink: "/learner-driving-license-holder-training" },
+      { id: 2, title: "RTO – Suspended Driving License Holders Training", urlLink: "/suspended-driving-license-holders-training" },
+      { id: 3, title: "RTO – Training for School Bus Driver", urlLink: "/training-for-school-bus-driver" },
+      { id: 4, title: "School Students Training – Group", urlLink: "/school-students-training-group" },
+      { id: 5, title: "College / Organization Training – Group", urlLink: "/college-organization-training-group" },
+      { id: 6, title: "College / Organization Training – Individual", urlLink: "/college-organization-training-individual" },
+    ]
+  },
+  {
+    id: 3,
+    title: "ABOUT",
+    submenus: [
+      { id: 1, title: "RTO – Learner Driving License Holder Training", urlLink: "/learner-driving-license-holder-training" },
+      { id: 2, title: "RTO – Suspended Driving License Holders Training", urlLink: "/suspended-driving-license-holders-training" },
+      { id: 3, title: "RTO – Training for School Bus Driver", urlLink: "/training-for-school-bus-driver" },
+      { id: 4, title: "School Students Training – Group", urlLink: "/school-students-training-group" },
+      { id: 5, title: "College / Organization Training – Group", urlLink: "/college-organization-training-group" },
+      { id: 6, title: "College / Organization Training – Individual", urlLink: "/college-organization-training-individual" },
+    ]
+  },
+  {
+    id: 4,
+    title: "TRAINING",
+    submenus: [
+      { id: 1, title: "RTO – Learner Driving License Holder Training", urlLink: "/learner-driving-license-holder-training" },
+      { id: 2, title: "RTO – Suspended Driving License Holders Training", urlLink: "/suspended-driving-license-holders-training" },
+      { id: 3, title: "RTO – Training for School Bus Driver", urlLink: "/training-for-school-bus-driver" },
+      { id: 4, title: "School Students Training – Group", urlLink: "/school-students-training-group" },
+      { id: 5, title: "College / Organization Training – Group", urlLink: "/college-organization-training-group" },
+      { id: 6, title: "College / Organization Training – Individual", urlLink: "/college-organization-training-individual" },
+    ]
+  },
+  {
+    id: 5,
+    title: "TRAFFIC AWARENESS",
+    submenus: [
+      { id: 1, title: "RTO – Learner Driving License Holder Training", urlLink: "/learner-driving-license-holder-training" },
+      { id: 2, title: "RTO – Suspended Driving License Holders Training", urlLink: "/suspended-driving-license-holders-training" },
+      { id: 3, title: "RTO – Training for School Bus Driver", urlLink: "/training-for-school-bus-driver" },
+      { id: 4, title: "School Students Training – Group", urlLink: "/school-students-training-group" },
+      { id: 5, title: "College / Organization Training – Group", urlLink: "/college-organization-training-group" },
+      { id: 6, title: "College / Organization Training – Individual", urlLink: "/college-organization-training-individual" },
+    ]
+  },
+  {
+    id: 6,
+    title: "INVESTER",
+    submenus: [
+      { id: 1, title: "RTO – Learner Driving License Holder Training", urlLink: "/learner-driving-license-holder-training" },
+      { id: 2, title: "RTO – Suspended Driving License Holders Training", urlLink: "/suspended-driving-license-holders-training" },
+      { id: 3, title: "RTO – Training for School Bus Driver", urlLink: "/training-for-school-bus-driver" },
+      { id: 4, title: "School Students Training – Group", urlLink: "/school-students-training-group" },
+      { id: 5, title: "College / Organization Training – Group", urlLink: "/college-organization-training-group" },
+      { id: 6, title: "College / Organization Training – Individual", urlLink: "/college-organization-training-individual" },
+    ]
+  },
+  {
+    id: 7,
+    title: "CONTACT",
+    submenus: [
+      { id: 1, title: "RTO – Learner Driving License Holder Training", urlLink: "/learner-driving-license-holder-training" },
+      { id: 2, title: "RTO – Suspended Driving License Holders Training", urlLink: "/suspended-driving-license-holders-training" },
+      { id: 3, title: "RTO – Training for School Bus Driver", urlLink: "/training-for-school-bus-driver" },
+      { id: 4, title: "School Students Training – Group", urlLink: "/school-students-training-group" },
+      { id: 5, title: "College / Organization Training – Group", urlLink: "/college-organization-training-group" },
+      { id: 6, title: "College / Organization Training – Individual", urlLink: "/college-organization-training-individual" },
+    ]
+  },
+];
+
+const SidebarMenu = () => {
+  const { setTitle } = useContext(SideBarTitle);
+  const [activeSubMenu, setActiveSubMenu] = useState(navigationLinks[0].title); // Set the first menu open by default
+  const location = useLocation(); // Get current route
+
+  // Function to handle submenu click
+  const handleSubMenuClick = (title) => {
+    setTitle(title);
+    setActiveSubMenu(prevTitle => (prevTitle === title ? null : title));
+  };
+
+  // Function to apply active styles to the submenu label
+  const getSubMenuActiveStyle = (title) => {
+    // Check if any submenu item of this menu is active
+    const isActive = navigationLinks.find(item => item.title === title)?.submenus.some(submenu => location.pathname === submenu.urlLink);
+    return isActive || activeSubMenu === title ? { backgroundColor: '#f0f0f0', fontWeight: 'bold' } : {};
+  };
+
+  // Function to apply active styles to the menu items
+  const getActiveStyle = (urlLink) => {
+    return location.pathname === urlLink ? { backgroundColor: '#dcdcdc', fontWeight: 'bold' } : {};
+  };
 
   return (
     <div className={`sidebar sidebar-change`}>
       <div className="user-info">
         <div className="info-img img-fit-cover">
-          <img src={personsImgs.person_five} alt="profile image" />
+          <img src={personsImgs.person_five} alt="profile" />
         </div>
         <span className="info-name">Nashik First</span>
       </div>
 
-      <nav className="navigation">
-        <ul className="nav-list">
-          {
-            navigationLinks.map((navigationLink) => (
-              <li className="nav-item" key={navigationLink.id}>
-                <Link
-                  onClick={ClickFunction(navigationLink.title)}
-                  // to={`${navigationLink.urlLink}`} 
-                  to={`${navigationLink.urlLink}`} className={`nav-link ${navigationLink.id === activeLinkIdx ? 'active' : null}`}>
-                  {/* <img src={ navigationLink.image } className="nav-link-icon" alt = { navigationLink.title } /> */}
-                  <span className="nav-link-text">{navigationLink.title}</span>
-                </Link>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
+      <Sidebar>
+        <Menu>
+          {navigationLinks.map((item) => (
+            <SubMenu
+              key={item.id}
+              label={item.title}
+              open={activeSubMenu === item.title}
+              onClick={() => handleSubMenuClick(item.title)}
+              style={getSubMenuActiveStyle(item.title)} // Apply active style to the submenu
+            >
+              {item.submenus.map((data) => (
+                <MenuItem
+                  key={data.id}
+                  style={getActiveStyle(data.urlLink)} // Apply active style to the menu item
+                >
+                  <Link style={{ color: "black", textDecoration: 'none' }} to={data.urlLink}>
+                    {data.title}
+                  </Link>
+                </MenuItem>
+              ))}
+            </SubMenu>
+          ))}
+        </Menu>
+      </Sidebar>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default SidebarMenu;
