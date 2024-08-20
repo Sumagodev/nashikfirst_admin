@@ -81,11 +81,17 @@
   .nav-link:hover {
     border: 1px solid var(--clr-primar-light);
   }
-  .nav-link.active {
+  /* .nav-link.active {
     background-color: var(--clr-pumpkin);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
       rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
       border: 0;
+  } */
+
+  .nav-link.active {
+    background-color: #ddd;  /* Highlight background */
+    color: #000;  /* Text color for active link */
+    font-weight: bold;  /* Make text bold */
   }
   .nav-link-icon {
     width: 22px;

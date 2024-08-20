@@ -13,7 +13,6 @@ const Content = () => {
   return (
     <div className={`${window.innerWidth > 1200 ? 'main-content' : 'main-content1'}`}>
       <ContentTop />
-      <ContentMain />
       <Routes>
         <Route path="/learner-driving-license-holder-training" Component={LearnerLicense} />
         <Route path="/suspended-driving-license-holders-training" Component={SuspendedLicense} />
