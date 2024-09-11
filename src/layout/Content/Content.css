@@ -5,7 +5,7 @@
   } */
 
   .main-content {
-    margin-left: 260px; 
+    /* margin-left: 260px;  */
     background-color: var(--clr-white);
     padding: 32px;
     flex: 1;
@@ -13,12 +13,12 @@
     overflow-y: auto; /* Allows scrolling for content */
   }
   .main-content1 {
-    margin-left: 50px; 
+    /* margin-left: 50px;  */
     background-color: var(--clr-white);
     padding: 32px;
     flex: 1;
-    height: 100vh; /* Full viewport height */
-    overflow-y: auto; /* Allows scrolling for content */
+    height: 100vh;
+    overflow-y: auto; 
   }
   
   @media screen and (max-width: 1400px) {

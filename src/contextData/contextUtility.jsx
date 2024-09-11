@@ -3,7 +3,7 @@ import { createContext, useState } from "react"
 const SideBarTitle = createContext()
 
 const SideBarTitleData = ({ children }) => {
-    const [titles, setTitle] = useState("")
+    const [titles, setTitle] = useState("false")
     return (
         <SideBarTitle.Provider value={{ titles, setTitle }}>
             {children}

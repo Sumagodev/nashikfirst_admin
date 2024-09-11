@@ -1,8 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { personsImgs } from '../../utils/images';
-import { SideBarTitle } from '../../contextData/contextUtility';
 import "./Sidebar.css";
 
 // Sample navigation links with submenu items
@@ -22,7 +21,7 @@ const navigationLinks = [
     id: 2,
     title: "HOME",
     submenus: [
-      { id: 1, title: "RTO – Learner Driving License Holder Training", urlLink: "/learner-driving-license-holder-training" },
+      { id: 1, title: "Counter", urlLink: "/counter" },
       { id: 2, title: "RTO – Suspended Driving License Holders Training", urlLink: "/suspended-driving-license-holders-training" },
       { id: 3, title: "RTO – Training for School Bus Driver", urlLink: "/training-for-school-bus-driver" },
       { id: 4, title: "School Students Training – Group", urlLink: "/school-students-training-group" },
@@ -92,14 +91,19 @@ const navigationLinks = [
   },
 ];
 
-const SidebarMenu = () => {
-  const { setTitle } = useContext(SideBarTitle);
-  const [activeSubMenu, setActiveSubMenu] = useState(navigationLinks[0].title); // Set the first menu open by default
+const SidebarMenu = ({ setTitles }) => {
+  const [activeSubMenu, setActiveSubMenu] = useState("MASTERS"); // Set the "MASTERS" submenu open by default
   const location = useLocation(); // Get current route
+
+  useEffect(() => {
+    // Find the "Holiday" menu item and set it active
+    const defaultSubMenu = navigationLinks.find(item => item.title === "MASTERS")?.submenus.find(submenu => submenu.title === "Holiday");
+    if (defaultSubMenu) {
+    }
+  }, []);
 
   // Function to handle submenu click
   const handleSubMenuClick = (title) => {
-    setTitle(title);
     setActiveSubMenu(prevTitle => (prevTitle === title ? null : title));
   };
 
@@ -139,7 +143,7 @@ const SidebarMenu = () => {
                   key={data.id}
                   style={getActiveStyle(data.urlLink)} // Apply active style to the menu item
                 >
-                  <Link style={{ color: "black", textDecoration: 'none' }} to={data.urlLink}>
+                  <Link style={{ color: "black", textDecoration: 'none' }} onClick={() => setTitles(data.title)} to={data.urlLink}>
                     {data.title}
                   </Link>
                 </MenuItem>
